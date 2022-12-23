@@ -1,24 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import '../src/App.css'
+import { useEffect } from 'react';
+import Login from './Components/Login'
+import Register from './Components/Register';
+import Home from './Components/Home';
+import Edit from './Components/Edit'
+import { Route, Routes } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { loadData } from './store/Actions/userAction'
 
 function App() {
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(loadData())
+  }, [dispatch])
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div className='p-3' style={{ backgroundColor: "white" }}>
+        <Routes>
+          <Route path='/' element={<Login />} />
+          <Route path='/Register' element={<Register />} />
+          <Route path='/profile/' element={<Home />} />
+          <Route path='/edit' element={<Edit />} />
+        </Routes>
+      </div>
+    </>
   );
 }
 
